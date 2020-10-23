@@ -16,7 +16,6 @@ BulletInfo Bullet2[Max_Bullet];
 clock_t LastBulletFired = clock();
 
 
-
 void NewBullet1()
 {
     clock_t CurrentTime = clock();
@@ -77,6 +76,7 @@ void MoveBullet1()
 {
     clock_t CurrentTime = clock();
     int BulletSurvivalTime;
+    setlinestyle(SOLID_LINE, 0, 3);
 
     for(int i=0; i<Max_Bullet; i++)
         {
@@ -120,6 +120,12 @@ void MoveBullet1()
                  if(getpixel(Bullet1[i].X_Pos, Bullet1[i].Y_Pos) == GREEN &&
                    (getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos+2) == GREEN || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos+2) == GREEN ||
                     getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos-2) == GREEN || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos-2) == GREEN))
+                {
+                    GameActive = false;
+                }
+                if(getpixel(Bullet1[i].X_Pos, Bullet1[i].Y_Pos) == RED &&
+                  (getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos+2) == RED || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos+2) == RED ||
+                   getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos-2) == RED || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos-2) == RED))
                 {
                     GameActive = false;
                 }
@@ -176,13 +182,18 @@ void MoveBullet2()
                         }
 
                     }
-                    else if(getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == RED &&
-                   (getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos+2) == RED || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos+2) == RED ||
-                    getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos-2) == RED || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos-2) == RED))
-                    {
-                        GameActive = false;
-
-                    }
+                 if(getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == GREEN &&
+                   (getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos+2) == GREEN || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos+2) == GREEN ||
+                    getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos-2) == GREEN || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos-2) == GREEN))
+                {
+                    GameActive = false;
+                }
+                if(getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == RED &&
+                  (getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos+2) == RED || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos+2) == RED ||
+                   getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos-2) == RED || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos-2) == RED))
+                {
+                    GameActive = false;
+                }
 
                     circle(Bullet2[i].X_Pos, Bullet2[i].Y_Pos,2);
 
