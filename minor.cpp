@@ -13,7 +13,7 @@ void Menu()
     initwindow(900,600,"HOME",100,100);
     POINT CursorPosition;
 
-    while(GameActive)
+    while(1)
     {
         settextstyle(9,HORIZ_DIR,5);
         setcolor(RED);
@@ -89,10 +89,11 @@ int main()
     int width = GetSystemMetrics(SM_CXSCREEN);
     int height = GetSystemMetrics(SM_CYSCREEN);
 
-  // Menu();
+    Menu();
 
     initwindow(width, height, "Tank Trouble", -3, 0, false, true);
-    int page=0,i=0,j=0;
+    int page=0;
+    GameActive = true ;
 
     while(GameActive)
     {
@@ -202,17 +203,17 @@ int main()
 
         if(GetAsyncKeyState(VK_ESCAPE))
         {
-            break;
+            GameActive = false;
         }
-        MoveBullet1();
-        MoveBullet2();
         DrawTank();
         DrawTank2();
+        MoveBullet1();
+        MoveBullet2();
         page=1-page;
         delay(10);
      }
 
-    getch();
+  //  getch();
     closegraph();
     goto label;
 }
