@@ -85,15 +85,15 @@ void Menu()
 
 int main()
 {
-    label:
+   // label:
     int width = GetSystemMetrics(SM_CXSCREEN);
     int height = GetSystemMetrics(SM_CYSCREEN);
 
-    Menu();
+  //  Menu();
 
     initwindow(width, height, "Tank Trouble", -3, 0, false, true);
     int page=0;
-    GameActive = true ;
+   // GameActive = true ;
 
     while(GameActive)
     {
@@ -215,5 +215,5 @@ int main()
 
   //  getch();
     closegraph();
-    goto label;
+   // goto label;
 }
