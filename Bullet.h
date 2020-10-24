@@ -2,6 +2,8 @@ bool GameActive = true;
 //Bullet for Tank
 static const int Max_Bullet = 5;
 static const double Bullet_Speed = 5.0;
+int Life1 = 3;
+int Life2 = 3;
 
 struct BulletInfo
 {
@@ -13,13 +15,14 @@ struct BulletInfo
 
 BulletInfo Bullet1[Max_Bullet];
 BulletInfo Bullet2[Max_Bullet];
-clock_t LastBulletFired = clock();
+clock_t LastBulletFired1 = clock();
+clock_t LastBulletFired2 = clock();
 
 
 void NewBullet1()
 {
     clock_t CurrentTime = clock();
-    int TimeInterval = int ((CurrentTime - LastBulletFired)/CLOCKS_PER_SEC);
+    int TimeInterval = int ((CurrentTime - LastBulletFired1)/CLOCKS_PER_SEC);
     if(TimeInterval<1)
         return;
 
@@ -38,16 +41,16 @@ void NewBullet1()
 
     Bullet1[i].IsActive = true;
     Bullet1[i].angle = angle1 - M_PI_4;
-    Bullet1[i].X_Pos = Tank1X + (int)(40.0*cos(angle1-M_PI_4));
-    Bullet1[i].Y_Pos = Tank1Y - (int)(40.0*sin(angle1-M_PI_4));
+    Bullet1[i].X_Pos = Tank1X + (int)(35.0*cos(angle1-M_PI_4));
+    Bullet1[i].Y_Pos = Tank1Y - (int)(35.0*sin(angle1-M_PI_4));
     Bullet1[i].ReleaseTime = CurrentTime;
-    LastBulletFired = CurrentTime;
+    LastBulletFired1 = CurrentTime;
 }
 
 void NewBullet2()
 {
     clock_t CurrentTime = clock();
-    int TimeInterval = int ((CurrentTime - LastBulletFired)/CLOCKS_PER_SEC);
+    int TimeInterval = int ((CurrentTime - LastBulletFired2)/CLOCKS_PER_SEC);
     if(TimeInterval<1)
         return;
 
@@ -66,10 +69,10 @@ void NewBullet2()
 
     Bullet2[i].IsActive = true;
     Bullet2[i].angle = angle2 - M_PI_4;
-    Bullet2[i].X_Pos = Tank2x + (int)(40.0*cos(angle2-M_PI_4));
-    Bullet2[i].Y_Pos = Tank2y - (int)(40.0*sin(angle2-M_PI_4));
+    Bullet2[i].X_Pos = Tank2x + (int)(35.0*cos(angle2-M_PI_4));
+    Bullet2[i].Y_Pos = Tank2y - (int)(35.0*sin(angle2-M_PI_4));
     Bullet2[i].ReleaseTime = CurrentTime;
-    LastBulletFired = CurrentTime;
+    LastBulletFired2 = CurrentTime;
 }
 
 void MoveBullet1()
@@ -80,7 +83,7 @@ void MoveBullet1()
 
     for(int i=0; i<Max_Bullet; i++)
         {
-            if(Bullet1[i].IsActive)
+            if(Bullet1[i].IsActive == true)
             {
                 BulletSurvivalTime = int ((CurrentTime - Bullet1[i].ReleaseTime)/CLOCKS_PER_SEC);
                 if(BulletSurvivalTime > 10)
@@ -117,16 +120,22 @@ void MoveBullet1()
                         }
 
                     }
-                 if(getpixel(Bullet1[i].X_Pos, Bullet1[i].Y_Pos) == GREEN &&
+                 if(/*getpixel(Bullet1[i].X_Pos, Bullet1[i].Y_Pos) == GREEN &&*/
                    (getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos+2) == GREEN || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos+2) == GREEN ||
                     getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos-2) == GREEN || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos-2) == GREEN))
                 {
+                    Bullet1[i].IsActive = false ;
+                    Life2 -- ;
+                    if(Life2<1)
                     GameActive = false;
                 }
-                if(getpixel(Bullet1[i].X_Pos, Bullet1[i].Y_Pos) == RED &&
+                if(/*getpixel(Bullet1[i].X_Pos, Bullet1[i].Y_Pos) == RED &&*/
                   (getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos+2) == RED || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos+2) == RED ||
                    getpixel(Bullet1[i].X_Pos+2, Bullet1[i].Y_Pos-2) == RED || getpixel(Bullet1[i].X_Pos-2, Bullet1[i].Y_Pos-2) == RED))
                 {
+                    Bullet1[i].IsActive = false ;
+                    Life1 -- ;
+                    if(Life1<1)
                     GameActive = false;
                 }
 
@@ -182,16 +191,22 @@ void MoveBullet2()
                         }
 
                     }
-                 if(getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == GREEN &&
+                 if(/*getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == GREEN &&*/
                    (getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos+2) == GREEN || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos+2) == GREEN ||
                     getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos-2) == GREEN || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos-2) == GREEN))
                 {
+                    Bullet2[i].IsActive = false ;
+                    Life2 -- ;
+                    if(Life2<1)
                     GameActive = false;
                 }
-                if(getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == RED &&
+                if(/*getpixel(Bullet2[i].X_Pos, Bullet2[i].Y_Pos) == RED &&*/
                   (getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos+2) == RED || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos+2) == RED ||
                    getpixel(Bullet2[i].X_Pos+2, Bullet2[i].Y_Pos-2) == RED || getpixel(Bullet2[i].X_Pos-2, Bullet2[i].Y_Pos-2) == RED))
                 {
+                    Bullet2[i].IsActive = false ;
+                    Life1 -- ;
+                    if(Life1<1)
                     GameActive = false;
                 }
 
